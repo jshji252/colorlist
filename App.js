@@ -4,6 +4,8 @@ import React from 'react';
 import {} from 'react-native';
 import ColorList from './components/ColorList';
 import ColorInfo from './components/ColorInfo';
+import WebPage from './components/WebPage';
+import ProductPage from './components/ProductPage';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 
@@ -28,6 +30,16 @@ const App = () => {
           name="Details"
           component={ColorInfo}
           options={({route}) => ({title: route.params.color})}
+        />
+        <Stack.Screen
+          name="Web"
+          component={WebPage}
+          options={{title: 'All Colours'}}
+        />
+        <Stack.Screen
+          name="Products"
+          component={ProductPage}
+          options={{title: 'All Products'}}
         />
       </Stack.Navigator>
     </NavigationContainer>

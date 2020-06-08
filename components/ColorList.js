@@ -17,6 +17,7 @@ export default class ColorList extends React.Component {
   }
 
   componentDidMount() {
+    AsyncStorage.setItem('@ColorListStore:Colors', JSON.stringify([])); //works Globally
     AsyncStorage.getItem('@ColorListStore:Colors', (err, data) => {
       if (err) {
         console.error('Error loading colors:', err);
@@ -49,16 +50,21 @@ export default class ColorList extends React.Component {
     const {backgroundColor} = this.state;
     return (
       <>
-        <ColorForm onNewColor={this.newColor} />
+        <ColorForm
+          onNewColor={this.newColor}
+          navigation={this.props.navigation}
+        />
         <View style={[styles.containerMain, {backgroundColor}]}>
           <FlatList
             data={this.state.availableColors}
-            renderItem={({item}) => (
-              <ColorButton
-                backgroundColor={item}
-                onSelect={() => navigate('Details', {color: item})}
-              />
-            )}
+            renderItem={({item}) => {
+              return (
+                <ColorButton
+                  backgroundColor={item}
+                  onSelect={() => navigate('Details', {color: item})}
+                />
+              );
+            }}
           />
         </View>
       </>
